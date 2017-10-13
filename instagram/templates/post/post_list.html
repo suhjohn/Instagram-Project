@@ -8,6 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-
+    {% for post in posts %}
+    <div>
+        <img src="{{ post.photo }}" alt="image">
+    </div>
+    {% endfor %}
 </body>
 </html>
