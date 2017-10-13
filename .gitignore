@@ -221,3 +221,7 @@ venv.bak/
 .mypy_cache/
 
 # End of https://www.gitignore.io/api/linux,macos,python,django,pycharm
+
+#Custom
+.idea/
+.config_secret/
