@@ -4,9 +4,10 @@ from django.db import models
 
 class Post(models.Model):
     photo = models.ImageField(
-        upload_to='photo',
+        upload_to='post',
         blank=False,
     )
+
     created_at = models.DateTimeField(
         auto_now_add=True
     )

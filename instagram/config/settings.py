@@ -22,6 +22,13 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 # instagra_project/.config_secret
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
 
+# instagram_project/instagram/media
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# instagram_project/instagram/static
+STATIC_DIR = os.path.join(BASE_DIR, "static")
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
