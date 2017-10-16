@@ -11,7 +11,6 @@
 {% block content %}
 <div class="body-container">
     <div class="container">
-        {% for post in posts %}
         <div class="row">
             <div class="col-md-12" id="{{ post.pk }}">
                 <div class="post-container">
@@ -19,14 +18,15 @@
                     {% for content in post.postcomment_set.all %}
                     <div class="col-md-12">{{ content }}</div>
                     {% endfor %}
-                    <form method="POST" class="comment-form" action="comment/{{ post.pk }}/">
+                    <form method="POST" action="comment/{{ post.pk }}/">
                         {{ comment }}
                         {% csrf_token %}
+                        <input type="submit" class="btn btn-primary btn-post"
+                               value="comment">
                     </form>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

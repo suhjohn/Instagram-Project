@@ -21,12 +21,14 @@ from django.contrib import admin
 from post.views import (
     post_list,
 
-    post_create)
+    post_create, add_comment, post_detail)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^post/$', post_list, name='post_list'),
+    url(r'^post/(?P<post_pk>\d+)/$', post_detail, name='post_detail'),
     url(r'^post/create/$', post_create, name='post_create'),
+    url(r'^post/comment/(?P<pk>\d+)/$', add_comment, name='add_comment'),
 ]
 urlpatterns += static(
     settings.MEDIA_URL,

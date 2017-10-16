@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -12,23 +13,14 @@ def post_list(request):
     :param request:
     :return:
     """
-    comment = PostCommentForm(request.POST)
-
-    if comment.is_valid():
-        post = request.GET.get('post')
-        print(post)
-        new_comment = comment.save(commit=False)
-        print(comment)
-
-        # new_comment.post = 1
-        # new_comment.save()
-        # return redirect(post_list)
+    comment = PostCommentForm()
     posts = Post.objects.all()
     context = {
-        'posts':posts,
-        'comment':comment,
+        'posts': posts,
+        'comment': comment,
     }
     return render(request, 'post/post_list.html', context)
+
 
 def post_create(request):
     """
@@ -36,13 +28,34 @@ def post_create(request):
     :param request:
     :return:
     """
-    imageform = PostForm(request.POST, request.FILES,)
+    imageform = PostForm(request.POST, request.FILES)
     if imageform.is_valid():
         new_image = imageform.save(commit=False)
         new_image.save()
         return redirect(post_list)
     context = {
-        'imageform' : imageform,
+        'imageform': imageform,
     }
     return render(request, 'post/post_create.html', context)
+
+
+def add_comment(request, pk):
+    post = Post.objects.get(pk=pk)
+    comment = PostCommentForm(request.POST)
+    if comment.is_valid():
+        new_comment = comment.save(commit=False)
+        new_comment.post = post
+        new_comment.save()
+    return redirect(post_list)
+
+def delete_comment(request, pk):
+    post = Post.objects.get(pk=pk)
+
+
+def post_detail(request, post_pk):
+    post = Post.objects.get(pk=post_pk)
+    context = {
+        'post':post
+    }
+    return render(request, 'post/post_detail.html', context)
 

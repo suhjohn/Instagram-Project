@@ -7,7 +7,6 @@ class Post(models.Model):
         upload_to='post',
         blank=False,
     )
-
     created_at = models.DateTimeField(
         auto_now_add=True
     )
@@ -25,3 +24,6 @@ class PostComment(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True
     )
+
+    def __str__(self):
+       return self.content

@@ -1,24 +1,15 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
 <div>
     <h1>Form</h1>
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ imageform.as_p }}
-        <input type="submit" class="btn btn-primary btn-post" value="upload photo">
+
+        <button type="submit" class="btn btn-primary btn-post" value="upload photo">upload photo</button>
     </form>
 </div>
-</body>
-</html>
+
+{% endblock %}
