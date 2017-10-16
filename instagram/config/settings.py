@@ -34,7 +34,10 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 STATIC_URL = '/static/'
 
-
+#Django에서 정적파일을 검색하고 가져올 폴더 목
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 

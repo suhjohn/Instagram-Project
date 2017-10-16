@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,13 +7,43 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Document</title>
 </head>
 <body>
+
+<!--Template language의 for구문을 사용해서 각 Post의 photo항목을 출력-->
+<!--.photo속성의 'url'속성을 사용해서 img태그를 사용 실제 이미지를 보여주기-->
+
+<!--1. 사진 업로드하기-->
+<!--2. 사진에 댓글달기-->
+<!--extra1) urls.py모듈을 post애플리케이션 내부에 생성하고,
+						include를 이용해서 root urls.py모듈에서 사용-->
+<!--extra2) 사진 댓글 지우기, 사진 지우기-->
+<div class="container">
     {% for post in posts %}
-    <div>
-        <img src="{{ post.photo }}" alt="image">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="post.pk">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <img src="{{ post.photo.url }}" alt="image">
+                    {% for content in post.postcomment_set.all %}
+                    <div class="col-md-12">{{ content }}</div>
+                    {% endfor %}
+
+                    <h3>Comments</h3>
+                    {{ comment.as_p }}
+                    <input type="submit" class="btn btn-primary btn-post" value="comment"
+                           href='?post={{ post }}'>
+                </form>
+            </div>
+        </div>
     </div>
     {% endfor %}
+</div>
+a
 </body>
 </html>
