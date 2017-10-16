@@ -12,21 +12,10 @@
 <div class="body-container">
     <div class="container">
         {% for post in posts %}
-        <div class="row">
-            <div class="col-md-12" id="{{ post.pk }}">
-                <div class="post-container">
-                    <img src="{{ post.photo.url }}" alt="image">
-                    {% for content in post.postcomment_set.all %}
-                    <div class="col-md-12">{{ content }}</div>
-                    {% endfor %}
-                    <form method="POST" class="comment-form" action="comment/{{ post.pk }}/">
-                        {{ comment }}
-                        {% csrf_token %}
-                    </form>
-                </div>
-            </div>
-        </div>
+        {% include "post/post.html" %}
         {% endfor %}
     </div>
 </div>
+
+
 {% endblock %}

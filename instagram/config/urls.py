@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^post/$', post_list, name='post_list'),
     url(r'^post/(?P<post_pk>\d+)/$', post_detail, name='post_detail'),
     url(r'^post/create/$', post_create, name='post_create'),
-    url(r'^post/comment/(?P<pk>\d+)/$', add_comment, name='add_comment'),
+    url(r'comment/(?P<post_pk>\d+)/$', add_comment, name='add_comment'),
 ]
 urlpatterns += static(
     settings.MEDIA_URL,

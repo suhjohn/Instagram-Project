@@ -13,16 +13,16 @@ class PostForm(forms.ModelForm):
 
 class PostCommentForm(forms.ModelForm):
     content = forms.CharField(
-        label=''
+        label='',
+
     )
+
     class Meta:
         model = PostComment
         fields = [
             "content",
         ]
-        labels = {
-            'name':('Writer'),
-        }
+
         # def is_valid(self):
         # self.instance.post
         # return super(PostCommentForm, self).form_valid()

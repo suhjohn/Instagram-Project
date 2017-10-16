@@ -11,26 +11,8 @@
 {% block content %}
 <div class="body-container">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12" id="{{ post.pk }}">
-                <div class="post-container">
-                    {% if post.photo %}
-                    <img src="{{ post.photo.url }}" alt="image">
-                    {% else %}
-                    <h3>이미지 파일이 없습니다</h3>
-                    {% endif %}
-                    {% for content in post.postcomment_set.all %}
-                    <div class="col-md-12">{{ content }}</div>
-                    {% endfor %}
-                    <form method="POST" action="comment/{{ post.pk }}/">
-                        {{ comment }}
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-primary btn-post"
-                               value="comment">
-                    </form>
-                </div>
-            </div>
-        </div>
+        {% include "post/post.html" %}
+
     </div>
 </div>
 {% endblock %}

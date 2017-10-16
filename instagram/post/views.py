@@ -1,9 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from .forms import PostForm, PostCommentForm
-from .models import Post
+from .models import Post, PostComment
 
 
 def post_list(request):
@@ -13,11 +13,11 @@ def post_list(request):
     :param request:
     :return:
     """
-    comment = PostCommentForm()
+    comment_form = PostCommentForm()
     posts = Post.objects.all()
     context = {
         'posts': posts,
-        'comment': comment,
+        'comment_form': comment_form,
     }
     return render(request, 'post/post_list.html', context)
 
@@ -39,23 +39,27 @@ def post_create(request):
     return render(request, 'post/post_create.html', context)
 
 
-def add_comment(request, pk):
-    post = Post.objects.get(pk=pk)
+def add_comment(request, post_pk):
+    post = Post.objects.get(pk=post_pk)
     comment = PostCommentForm(request.POST)
     if comment.is_valid():
-        new_comment = comment.save(commit=False)
-        new_comment.post = post
-        new_comment.save()
+        PostComment.objects.create(
+            post=post,
+            content=comment.cleaned_data['content']
+        )
     return redirect(post_list)
+
 
 def delete_comment(request, pk):
     post = Post.objects.get(pk=pk)
 
 
 def post_detail(request, post_pk):
-    post = Post.objects.get(pk=post_pk)
+    post = get_object_or_404(Post, pk=post_pk)
+    comment_form = PostCommentForm()
     context = {
-        'post':post
+        'post': post,
+        'comment_form': comment_form,
+
     }
     return render(request, 'post/post_detail.html', context)
-
