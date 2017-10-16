@@ -5,8 +5,16 @@
   height: 0;
   clear: both;
 }
+ul{
+  list-style:none;
+  padding:0;
+}
+li{
+  list-style:none;
+}
 
 body{
+  font-size: 14px !important;
 }
 img{
   max-width: 100%;
@@ -41,13 +49,12 @@ input{
   border-top: 1px solid #e1e1e1;
   position:relative;
   margin: 0 auto;
+  box-sizing:border-box;
 }
 .comment-form{
   width:95%;
-  height:40px;
+  height:60px;
   float:left;
-  min-height: 50px;
-
   &:focus{
     border:0;
   }
