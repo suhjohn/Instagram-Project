@@ -15,6 +15,10 @@ li{
 
 body{
   font-size: 14px !important;
+  background-color: #f1f1f1;
+}
+.container{
+  background-color: white;
 }
 img{
   max-width: 100%;
@@ -49,11 +53,11 @@ input{
   border-top: 1px solid #e1e1e1;
   position:relative;
   margin: 0 auto;
-  box-sizing:border-box;
+  height:60px;
 }
 .comment-form{
   width:95%;
-  height:60px;
+  height:58px;
   float:left;
   &:focus{
     border:0;
@@ -98,4 +102,14 @@ input{
     outline-color: black;
     cursor: pointer;
   }
+}
+
+.sign-up-row{
+  text-align: center;
+}
+
+
+.sign-up-col{
+  max-width: 30%;
+  margin:0 auto;
 }

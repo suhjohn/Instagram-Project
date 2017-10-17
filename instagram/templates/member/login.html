@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="login row sign-up-row">
+        <div class="col-md-12 sigh-up-col">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="username">
+                <input type="text" name="password">
+                <button class="btn btn-primary btn-block">로그인</button>
+            </form>
+        </div>
+    </div>
+    <div class="sign-up-row row">
+        <div class="sign-up-col col-md-12">
+            <p>Not a member yet? Join Instagram.</p>
+            <a href="/member/signup/" class="btn btn-primary">Create Account</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

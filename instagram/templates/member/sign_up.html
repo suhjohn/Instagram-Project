@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="sign-up-row row">
+        <div class="sign-up-col col-md-12">
+            <h1> Sign Up </h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ signup_form.as_p }}
+                <button type="submit" class="btn btn-primary btn-post">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("errorlist")
+        alert("")
+    }
+</script>
+{% endblock %}

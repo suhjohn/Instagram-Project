@@ -1,4 +1,9 @@
 <nav class="fixed-top navbar navbar-toggleable-md">
+    <p>
+        {% if user.is_authenticated %}
+            {{ user.username }} 님 환영합니다!
+        {% endif %}
+    </p>
     <div class="container navbar-container ">
         <a class="navbar-brand" href="{% url 'post_list' %}">Instagram</a>
 
