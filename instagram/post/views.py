@@ -63,3 +63,4 @@ def post_detail(request, post_pk):
 
     }
     return render(request, 'post/post_detail.html', context)
+

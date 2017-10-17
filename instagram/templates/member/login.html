@@ -4,13 +4,15 @@
 
 <div class="container">
     <div class="login row sign-up-row">
-        <div class="col-md-12 sigh-up-col">
+        <div class="col-md-12 sign-up-col">
+            <h1> Log In </h1>
             <form action="" method="POST">
                 {% csrf_token %}
-                <input type="text" name="username">
-                <input type="text" name="password">
-                <button class="btn btn-primary btn-block">로그인</button>
-            </form>
+                {{ login_form.username.label }}
+                {{ login_form.username }}
+                {{ login_form.password.label }}
+                {{ login_form.password }}
+                <button class="btn btn-primary">Log In</button>
         </div>
     </div>
     <div class="sign-up-row row">

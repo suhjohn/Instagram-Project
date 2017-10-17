@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, authenticate, login as django_login
+from django.contrib.auth import get_user_model, logout as django_logout
 
 import post
-from .forms import SignUpForm
+from .forms import SignUpForm, LoginForm
 
 # Create your views here.
 
@@ -11,21 +11,14 @@ User = get_user_model()
 
 
 def login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        # user 가 있으면 값이 있고 없으면 None
-        user = authenticate(
-            username=username,
-            password=password,
-        )
-        if user is not None:
-            django_login(request, user)
-            return redirect(post.views.post_list)
-        else:
-            return HttpResponse('Login credentials invalid')
-    else:
-        return render(request, 'member/login.html')
+    login_form = LoginForm(request.POST,)
+    if login_form.is_valid():
+        login_form.login(request)
+        return redirect(post.views.post_list)
+    context = {
+        'login_form':login_form,
+    }
+    return render(request, 'member/login.html', context)
 
 def signup(request):
     signup_form = SignUpForm(request.POST, )
