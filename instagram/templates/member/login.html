@@ -3,24 +3,7 @@
 {% block content %}
 
 <div class="container">
-    <div class="login row sign-up-row">
-        <div class="col-md-12 sign-up-col">
-            <h1> Log In </h1>
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{ login_form.username.label }}
-                {{ login_form.username }}
-                {{ login_form.password.label }}
-                {{ login_form.password }}
-                <button class="btn btn-primary">Log In</button>
-        </div>
-    </div>
-    <div class="sign-up-row row">
-        <div class="sign-up-col col-md-12">
-            <p>Not a member yet? Join Instagram.</p>
-            <a href="/member/signup/" class="btn btn-primary">Create Account</a>
-        </div>
-    </div>
+        {% include 'include/form-horizontal.html' with title="Log In" form=login_form button_text="Log In" %}
 </div>
 
 {% endblock %}

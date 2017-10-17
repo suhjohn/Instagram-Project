@@ -11,6 +11,11 @@ User = get_user_model()
 
 
 def login(request):
+    """
+    로그인 기능
+    :param request:
+    :return:
+    """
     login_form = LoginForm(request.POST,)
     if login_form.is_valid():
         login_form.login(request)
@@ -21,12 +26,15 @@ def login(request):
     return render(request, 'member/login.html', context)
 
 def signup(request):
-    signup_form = SignUpForm(request.POST, )
+    """
+    회원가입 기능
+    :param request:
+    :return:
+    """
+    signup_form = SignUpForm(request.POST,)
     if signup_form.is_valid():
-        username = signup_form.cleaned_data['username']
-        password = signup_form.cleaned_data['password']
-        new_user = User.objects.create_user(username=username, password=password)
-        return (HttpResponse(f'<p>{new_user.username}</p>'))
+        new_user = signup_form.signup()
+        return HttpResponse(f'<p>{new_user.username}</p>')
     context = {
         'signup_form': signup_form
     }
