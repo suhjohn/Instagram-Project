@@ -55,18 +55,26 @@ class LoginForm(forms.Form):
         )
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = None
+
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get("username")
         password = cleaned_data.get("password")
-        user = authenticate(
+        self.user = authenticate(
             username=username,
             password=password,
         )
-        if not user:
+        if not self.user:
             raise ValidationError(
                 'Invalid Login credentials'
             )
+        # if를 패스하면 self에 대해 login이라는 이름으로 self._login 함수를 부를 수 있도록 설정
+        else:
+            setattr(self, 'login', self._login)
+    
+    def _login(self, request):
+        django_login(request, self.user)
 
-    def login(self, request):
-        django_login(request, request.user)

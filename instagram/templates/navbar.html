@@ -4,7 +4,6 @@
         <a class="navbar-brand" href="{% url 'post_list' %}">Instagram</a>
 
         <ul class="menu-options">
-            {{ user }}
             <a class="user-icon fa fa-user-o" type="button">
                 {% if user.is_authenticated %}
                 {{ user.username }}
