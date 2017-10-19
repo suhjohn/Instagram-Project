@@ -13,14 +13,15 @@ def post_list(request):
     :param request:
     :return:
     """
-    comment_form = PostCommentForm()
-    posts = Post.objects.all()
-    context = {
-        'posts': posts,
-        'comment_form': comment_form,
-    }
+    context={}
+    if bool(request.user.is_authenticated):
+        comment_form = PostCommentForm()
+        posts = Post.objects.all()
+        context = {
+            'posts': posts,
+            'comment_form': comment_form,
+        }
     return render(request, 'post/post_list.html', context)
-
 
 def post_create(request):
     """
@@ -30,7 +31,7 @@ def post_create(request):
     """
     if bool(request.user.is_authenticated):
         form = PostForm(request.POST, request.FILES)
-        
+
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.author = request.user
@@ -45,15 +46,19 @@ def post_create(request):
 
 
 def add_comment(request, post_pk):
-    post = Post.objects.get(pk=post_pk)
-    comment = PostCommentForm(request.POST)
-    if comment.is_valid():
-        PostComment.objects.create(
-            author=request.user,
-            post=post,
-            content=comment.cleaned_data['content']
-        )
-    return redirect('post:post_list')
+    if bool(request.user.is_authenticated):
+        post = Post.objects.get(pk=post_pk)
+        comment = PostCommentForm(request.POST)
+
+        if comment.is_valid():
+            PostComment.objects.create(
+                author=request.user,
+                post=post,
+                content=comment.cleaned_data['content']
+            )
+        return redirect('post:post_list')
+    else:
+        return redirect('member:login')
 
 
 def delete_comment(request, pk):
@@ -70,4 +75,3 @@ def post_detail(request, post_pk):
 
     }
     return render(request, 'post/post_detail.html', context)
-
