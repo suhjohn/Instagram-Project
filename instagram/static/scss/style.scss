@@ -18,7 +18,7 @@ body{
   background-color: #f1f1f1;
 }
 .container{
-  background-color: white;
+  background-color: inherit;
 }
 img{
   max-width: 100%;
@@ -52,7 +52,6 @@ img{
 .navbar{
   background-color: white;
   box-shadow: 2px 3px 5px lightgrey;
-  height:60px;
 }
 
 .user-icon{
@@ -145,6 +144,10 @@ input{
   float:right;
 }
 
+.overflow-hidden{
+  overflow: hidden;
+}
+
 .sidepadding-sm-container{
   padding-left:10px;
   padding-right:10px;
@@ -153,6 +156,11 @@ input{
 .sign-up-col{
   max-width: 30%;
   margin:0 auto;
+}
+
+.img-fluid{
+  max-width:inherit;
+  max-height: 600px;
 }
 
 .col-centered{

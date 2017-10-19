@@ -1,9 +1,16 @@
 <div class="row padding-lg-container">
-    <div class="post-container">
-        <img id="post-photo-{{ post.pk }}" src="{{ post.photo.url }}" alt="image">
+    <div class="container post-container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#">{{ post.author }}</a>
+            </div>
+        </div>
+        <div class="row overflow-hidden textalign-center">
+            <img class="img-fluid" id="post-photo-{{ post.pk }}" src="{{ post.photo.url }}" alt="image">
+        </div>
         <ul class="comments">
-            {% for content in post.comments.all %}
-            <li class="col-md-12 comment">{{ content }}</li>
+            {% for comment in post.comments.all %}
+            <li class="col-md-12 comment"><a href="">{{ comment.author }}</a> {{ comment }}</li>
             {% endfor %}
         </ul>
         <div class="comment-form-container clearfix">

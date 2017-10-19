@@ -28,16 +28,20 @@ def post_create(request):
     :param request:
     :return:
     """
-    print(request)
-    imageform = PostForm(request.POST, request.FILES)
-    if imageform.is_valid():
-        new_image = imageform.save(commit=False)
-        new_image.save()
-        return redirect('post:post_list')
-    context = {
-        'imageform': imageform,
-    }
-    return render(request, 'post/post_create.html', context)
+    if bool(request.user.is_authenticated):
+        form = PostForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save()
+            return redirect('post:post_list')
+        context = {
+            'imageform': form,
+        }
+        return render(request, 'post/post_create.html', context)
+    else:
+        return redirect('member:login')
 
 
 def add_comment(request, post_pk):
@@ -45,6 +49,7 @@ def add_comment(request, post_pk):
     comment = PostCommentForm(request.POST)
     if comment.is_valid():
         PostComment.objects.create(
+            author=request.user,
             post=post,
             content=comment.cleaned_data['content']
         )

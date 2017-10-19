@@ -7,7 +7,6 @@
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ imageform.as_p }}
-
             <button type="submit" class="btn btn-primary btn-post" value="upload post">upload post</button>
         </form>
     </div>
