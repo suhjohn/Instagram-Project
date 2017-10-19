@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="body-container">
+    <div class="container padding-lg-container textalign-center">
+        <h1>Form</h1>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ imageform.as_p }}
 
-<div>
-    <h1>Form</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ imageform.as_p }}
-
-        <button type="submit" class="btn btn-primary btn-post" value="upload photo">upload photo</button>
-    </form>
+            <button type="submit" class="btn btn-primary btn-post" value="upload post">upload post</button>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

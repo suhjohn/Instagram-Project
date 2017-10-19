@@ -12,14 +12,14 @@
     </div>
         <div class="row padding-sm-container">
             <div class="col-centered d-block">
-                <a href="/member/signup/" class="d-block btn btn-primary">sign up</a>
+                <a href="{% url 'member:signup' %}" class="d-block btn btn-primary">sign up</a>
             </div>
         </div>
     </div>
     {% else %}
     <div class="row padding-sm-container">
         <div class="col-centered d-block">
-            <a href="/member/logout/" class="d-block btn btn-primary">Log Out</a>
+            <a href="{% url 'member:logout' %}" class="d-block btn btn-primary">Log Out</a>
         </div>        
     </div>
     {% endif %}

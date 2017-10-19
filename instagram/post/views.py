@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
@@ -28,11 +28,12 @@ def post_create(request):
     :param request:
     :return:
     """
+    print(request)
     imageform = PostForm(request.POST, request.FILES)
     if imageform.is_valid():
         new_image = imageform.save(commit=False)
         new_image.save()
-        return redirect(post_list)
+        return redirect('post:post_list')
     context = {
         'imageform': imageform,
     }
@@ -47,7 +48,7 @@ def add_comment(request, post_pk):
             post=post,
             content=comment.cleaned_data['content']
         )
-    return redirect(post_list)
+    return redirect('post:post_list')
 
 
 def delete_comment(request, pk):
@@ -56,6 +57,7 @@ def delete_comment(request, pk):
 
 def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
+
     comment_form = PostCommentForm()
     context = {
         'post': post,

@@ -146,8 +146,25 @@ input {
   text-align: center;
 }
 
+.textalign-right {
+  text-align: right;
+}
+
+.textalign-center {
+  text-align: center;
+}
+
 .reset-margin {
   margin: 0;
+}
+
+.float-right {
+  float: right;
+}
+
+.sidepadding-sm-container {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .sign-up-col {

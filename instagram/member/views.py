@@ -19,7 +19,7 @@ def login(request):
     login_form = LoginForm(request.POST,)
     if login_form.is_valid():
         login_form.login(request)
-        return redirect(post.views.post_list)
+        return redirect('post:post_list')
     context = {
         'login_form':login_form,
     }
@@ -32,7 +32,7 @@ def logout(request):
     :return:
     """
     django_logout(request)
-    return redirect(login)
+    return redirect('member:login')
 
 def signup(request):
     """
