@@ -20,7 +20,7 @@ from django.contrib import admin
 
 from member.views import (
     signup,
-    login)
+    login, logout)
 from post.views import (
     post_list,
 
@@ -38,6 +38,7 @@ urlpatterns = [
     # Member
     url(r'^member/signup', signup, name='signup'),
     url(r'^member/login/$', login, name='login'),
+    url(r'^member/logout/$', logout, name='logout')
 ]
 urlpatterns += static(
     settings.MEDIA_URL,

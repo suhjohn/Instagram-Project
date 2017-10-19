@@ -26,9 +26,26 @@ img{
 }
 .body-container{
   background-color: #fafafa;
+  padding-top:70px;
 }
-.row{
-  padding: 60px 0;
+.padding-lg-container{
+  padding-top:50px;
+  padding-bottom:50px;
+}
+
+.padding-md-container{
+  padding-top:30px;
+  padding-bottom:30px;
+}
+
+.padding-sm-container{
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+.padding-xs-container{
+  padding-top:10px;
+  padding-bottom:10px;
 }
 
 /* navbar */
@@ -114,8 +131,15 @@ input{
   text-align: center;
 }
 
+.reset-margin{
+  margin:0;
+}
 
 .sign-up-col{
   max-width: 30%;
   margin:0 auto;
+}
+
+.col-centered{
+  margin: 0 auto;
 }

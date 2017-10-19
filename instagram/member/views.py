@@ -25,6 +25,15 @@ def login(request):
     }
     return render(request, 'member/login.html', context)
 
+def logout(request):
+    """
+    로그아웃 기능
+    :param request:
+    :return:
+    """
+    django_logout(request)
+    return redirect(login)
+
 def signup(request):
     """
     회원가입 기능

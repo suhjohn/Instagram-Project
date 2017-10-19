@@ -3,12 +3,13 @@
     <div class="container navbar-container ">
         <a class="navbar-brand" href="{% url 'post_list' %}">Instagram</a>
 
-        <ul class="menu-options">
-            <a class="user-icon fa fa-user-o" type="button">
-                {% if user.is_authenticated %}
-                {{ user.username }}
-                {% endif %}
-            </a>
+        <ul class="menu-options reset-margin">
+            {% if user.is_authenticated %}
+            {{ user.username }}
+            <a class="user-icon fa fa-user-o" href="/member/login/"></a>
+            {% else %}
+            <a class="user-icon fa fa-user-o" href="/member/login/"></a>
+            {% endif %}
         </ul>
     </div>
 

@@ -38,6 +38,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+
+
+AUTH_USER_MODEL ='member.User'
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -66,6 +72,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
 
+    'member',
     'post',
 ]
 
