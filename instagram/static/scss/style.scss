@@ -5,6 +5,16 @@
   height: 0;
   clear: both;
 }
+
+button{
+  padding:0;
+  border:0;
+  background-color: inherit;
+  font-size: 10px !important;
+}
+
+
+
 ul{
   list-style:none;
   padding:0;
@@ -58,6 +68,9 @@ img{
   display:flex;
 }
 
+.display-inline{
+  display:inline;
+}
 
 input{
   outline: none;

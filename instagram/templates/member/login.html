@@ -2,14 +2,15 @@
 
 {% block content %}
 
-<div class="container body-container">
-    {% if not user.is_authenticated %}
-    {% include 'include/form-horizontal.html' with title="Log In" form=login_form button_text="Log In" %}
-    <div class="row padding-sm-container">
-        <div class="col-centered">
-            <p class="d-block">Not a Member? Create a New Account.</p>
+<div class="body-container">
+    <div class="container">
+        {% if not user.is_authenticated %}
+        {% include 'include/form-horizontal.html' with title="Log In" form=login_form button_text="Log In" %}
+        <div class="row padding-sm-container">
+            <div class="col-centered">
+                <p class="d-block">Not a Member? Create a New Account.</p>
+            </div>
         </div>
-    </div>
         <div class="row padding-sm-container">
             <div class="col-centered d-block">
                 <a href="{% url 'member:signup' %}" class="d-block btn btn-primary">sign up</a>
@@ -20,9 +21,10 @@
     <div class="row padding-sm-container">
         <div class="col-centered d-block">
             <a href="{% url 'member:logout' %}" class="d-block btn btn-primary">Log Out</a>
-        </div>        
+        </div>
     </div>
     {% endif %}
 </div>
+</div>
 
-    {% endblock %}
+{% endblock %}

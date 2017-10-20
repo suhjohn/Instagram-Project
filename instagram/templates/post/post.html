@@ -3,6 +3,13 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="#">{{ post.author }}</a>
+                {% if post.author == user %}
+                <form class="float-right display-inline"
+                      action="{% url 'post:post_delete' post_pk=post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="fa fa-times"></button>
+                </form>
+                {% endif %}
             </div>
         </div>
         <div class="row overflow-hidden textalign-center">
@@ -10,11 +17,19 @@
         </div>
         <ul class="comments">
             {% for comment in post.comments.all %}
-            <li class="col-md-12 comment"><a href="">{{ comment.author }}</a> {{ comment }}</li>
+            <li class="col comment"><a href="">{{ comment.author }}</a> {{ comment }}
+                {% if comment.author == user %}
+                <form class="float-right display-inline"
+                      action="{% url 'post:delete_comment' comment_pk=comment.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="fa fa-times"></button>
+                </form>
+                {% endif %}
+            </li>
             {% endfor %}
         </ul>
         <div class="comment-form-container clearfix">
-            <form method="POST" class="comment-form" action="comment/{{ post.pk }}/?next=">
+            <form method="POST" class="comment-form" action="{% url 'post:add_comment' post_pk=post.pk %}/?next=">
                 {{ comment_form }}
                 {% csrf_token %}
             </form>
