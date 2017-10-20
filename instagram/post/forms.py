@@ -25,6 +25,13 @@ class PostCommentForm(forms.ModelForm):
         fields = [
             "content",
         ]
+        widgets = {
+            'content': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                }
+            )
+        }
 
         # def is_valid(self):
         # self.instance.post

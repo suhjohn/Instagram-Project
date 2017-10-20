@@ -9,7 +9,7 @@
             {% if post_type == 'list' %}
             /post/#post-{{ post.pk|add:'-1' }}
             {% elif post_type == 'detail' %}
-            {% url 'post:post_detail' post_pk=post.pk %}
+            /post/#post-{{ post.pk|add:'-1' }}
             {% endif %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="fa fa-times"></button>
@@ -17,9 +17,23 @@
                 {% endif %}
             </div>
         </div>
+        <!-- Image -->
         <div class="row overflow-hidden textalign-center">
             <img class="img-fluid" id="post-photo-{{ post.pk }}" src="{{ post.photo.url }}" alt="image">
         </div>
+        <!-- Like & Comment -->
+        <div class="row margin-width-container">
+            <div class="padding-xs-container">
+                {% if post in request.user.like_posts.all %}
+                <button class="fa fa-heart-c"></button>
+                {% else %}
+                <button class="fa fa-heart-o"></button>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Like list row -->
+
+        <!-- Comments -->
         <ul class="comments">
             {% for comment in post.comments.all %}
             <li class="col comment"><a href="">{{ comment.author }}</a> {{ comment }}
@@ -37,7 +51,7 @@
             </li>
             {% endfor %}
         </ul>
-        <div class="comment-form-container clearfix">
+        <div class="margin-width-container comment-form-container clearfix">
             <form method="POST" class="comment-form" action="{% url 'post:add_comment' post_pk=post.pk %}?next=
             {% if post_type == 'list' %}
             /post/#post-{{ post.pk }}

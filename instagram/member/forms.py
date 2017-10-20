@@ -5,47 +5,40 @@ from django.core.exceptions import ValidationError
 
 # from member.custom_validators import validate_username
 
+from .models import User
+
 User = get_user_model()
 
+
 class SignUpForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        class_update_fields = ('password1', 'password2')
+        for field in class_update_fields:
+            self.fields[field].widget.attrs.update({
+                'class' : 'form-control',
+            })
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ('age',)
+        fields = ('username', 'password1', 'password2', 'age', 'img_profile',)
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'password1': forms.PasswordInput(
+                attrs={
+                    'class' : 'form-control',
+                }
+            ),
+            'age': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
 
-
-# class SignUpForm(forms.Form):
-#     username = forms.CharField(
-#         widget=forms.TextInput(
-#             attrs={
-#                 'class': 'form-control',
-#             }
-#         )
-#     )
-#
-#     age = forms.IntegerField(
-#         widget=forms.NumberInput(
-#             attrs={
-#                 'class': 'form-control',
-#             }
-#         )
-#     )
-#
-#     password = forms.CharField(
-#         widget=forms.PasswordInput(
-#             attrs={
-#                 'class': 'form-control',
-#             }
-#         )
-#     )
-#
-#     password2 = forms.CharField(
-#         widget=forms.PasswordInput(
-#             attrs={
-#                 'class': 'form-control',
-#             }
-#         )
-#     )
-
+        }
 
 class LoginForm(forms.Form):
     """
@@ -93,4 +86,3 @@ class LoginForm(forms.Form):
         :return:
         """
         django_login(request, self.user)
-

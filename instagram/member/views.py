@@ -42,7 +42,8 @@ def signup(request):
     """
     signup_form = SignUpForm(request.POST,)
     if signup_form.is_valid():
-        new_user = signup_form.signup()
+        new_user = signup_form.save(commit=False)
+        new_user.save()
         django_login(request, new_user)
         return redirect('post:post_list')
     context = {

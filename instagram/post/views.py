@@ -61,12 +61,10 @@ def add_comment(request, post_pk):
         comment = PostCommentForm(request.POST)
         next = request.GET.get('next', '').strip()
         if comment.is_valid():
-            PostComment.objects.create(
-                author=request.user,
-                post=post,
-                content=comment.cleaned_data['content']
-            )
-
+            new_comment = comment.save(commit=False)
+            new_comment.author = request.user
+            new_comment.post = post
+            new_comment.save()
         return redirect(next)
     else:
         return redirect('member:login')

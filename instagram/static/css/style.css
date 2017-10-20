@@ -89,11 +89,14 @@ input {
 }
 
 .comment-form-container {
-  width: 95%;
   border-top: 1px solid #e1e1e1;
   position: relative;
   margin: 0 auto;
-  height: 60px;
+}
+
+.margin-width-container {
+  width: 95%;
+  margin: 0 auto;
 }
 
 .comment-form {
