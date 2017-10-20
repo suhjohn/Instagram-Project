@@ -1,4 +1,4 @@
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
@@ -13,7 +13,6 @@ def post_list(request):
     :param request:
     :return:
     """
-    context = {}
     if bool(request.user.is_authenticated):
         comment_form = PostCommentForm()
         posts = Post.objects.all()
@@ -21,7 +20,8 @@ def post_list(request):
             'posts': posts,
             'comment_form': comment_form,
         }
-    return render(request, 'post/post_list.html', context)
+        return render(request, 'post/post_list.html', context)
+    return redirect('member:login')
 
 
 def post_create(request):
@@ -32,7 +32,6 @@ def post_create(request):
     """
     if bool(request.user.is_authenticated):
         form = PostForm(request.POST, request.FILES)
-
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.author = request.user
@@ -44,40 +43,47 @@ def post_create(request):
         return render(request, 'post/post_create.html', context)
     else:
         return redirect('member:login')
-def post_delete(request, post_pk):
-    if request.method == 'POST':
-        post = get_object_or_404(Post, pk=post_pk)
-        post.delete()
-    return redirect('post:post_list')
 
+
+def post_delete(request, post_pk):
+    next = request.GET.get('next', '').strip()
+    post = get_object_or_404(Post, pk=post_pk)
+    if post.author == request.user:
+        post.delete()
+        return redirect(next)
+    else:
+        return HttpResponseForbidden()
 
 
 def add_comment(request, post_pk):
     if bool(request.user.is_authenticated):
         post = Post.objects.get(pk=post_pk)
         comment = PostCommentForm(request.POST)
-
+        next = request.GET.get('next', '').strip()
         if comment.is_valid():
             PostComment.objects.create(
                 author=request.user,
                 post=post,
                 content=comment.cleaned_data['content']
             )
-        return redirect('post:post_list')
+
+        return redirect(next)
     else:
         return redirect('member:login')
 
 
 def delete_comment(request, comment_pk):
-    if request.method == 'POST':
-        comment = get_object_or_404(PostComment, pk=comment_pk)
+    next = request.GET.get('next', '').strip()
+    comment = get_object_or_404(PostComment, pk=comment_pk)
+    if comment.author == request.user:
         comment.delete()
-    return redirect('post:post_list')
+        return redirect(next)
+    else:
+        return HttpResponseForbidden()
 
 
 def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
-
     comment_form = PostCommentForm()
     context = {
         'post': post,

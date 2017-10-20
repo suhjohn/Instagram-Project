@@ -12,7 +12,7 @@
 <div class="body-container">
     <div class="container">
         {% for post in posts %}
-        {% include "post/post.html" %}
+        {% include "include/post.html" with post_type='list' %}
         {% endfor %}
     </div>
 </div>

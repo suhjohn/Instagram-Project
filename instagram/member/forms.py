@@ -1,80 +1,50 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model, authenticate, login as django_login
 from django.core.exceptions import ValidationError
 
 # from member.custom_validators import validate_username
 
-
 User = get_user_model()
 
+class SignUpForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields + ('age',)
 
-class SignUpForm(forms.Form):
-    username = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
-    )
 
-    age = forms.IntegerField(
-        widget=forms.NumberInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
-    )
-
-    password = forms.CharField(
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
-    )
-
-    password2 = forms.CharField(
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def clean_username(self):
-        username = self.cleaned_data["username"]
-        if " " in username:
-            raise ValidationError(
-                ('Space in username'),
-            )
-
-        elif User.objects.filter(username=username).exists():
-            raise ValidationError(
-                ('Username Already Exists!'),
-            )
-        return username
-
-    def clean_password2(self):
-        if self.cleaned_data["password"] != self.cleaned_data["password2"]:
-            raise ValidationError(
-                ("Password Check Failed. Please check the password."),
-            )
-
-    def clean(self):
-        super().clean()
-        if self.is_valid():
-            setattr(self, 'signup', self._signup)
-
-        return self.cleaned_data
-
-    def _signup(self):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']
-        age = self.cleaned_data['age']
-        return User.objects.create_user(username=username, password=password, age=age)
+# class SignUpForm(forms.Form):
+#     username = forms.CharField(
+#         widget=forms.TextInput(
+#             attrs={
+#                 'class': 'form-control',
+#             }
+#         )
+#     )
+#
+#     age = forms.IntegerField(
+#         widget=forms.NumberInput(
+#             attrs={
+#                 'class': 'form-control',
+#             }
+#         )
+#     )
+#
+#     password = forms.CharField(
+#         widget=forms.PasswordInput(
+#             attrs={
+#                 'class': 'form-control',
+#             }
+#         )
+#     )
+#
+#     password2 = forms.CharField(
+#         widget=forms.PasswordInput(
+#             attrs={
+#                 'class': 'form-control',
+#             }
+#         )
+#     )
 
 
 class LoginForm(forms.Form):

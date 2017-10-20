@@ -18,16 +18,11 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from member.views import (
-    signup,
-    login, logout)
-from post.views import (
-    post_list,
-
-    post_create, add_comment, post_detail)
+from .views import landing_page
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', landing_page, name='landing_page'),
     url(r'^post/', include('post.urls', namespace='post')),
     url(r'^member/', include('member.urls', namespace='member')),
 ]

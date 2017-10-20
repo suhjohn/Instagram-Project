@@ -1,25 +1,28 @@
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="{% url 'post:post_list' %}">Instagram</a>
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'post:post_list' %}">Instagram</a>
 
-    <div class="justify-content-end collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav">
-            <li class="p-2 nav-item sidepadding-sm-container">
-                <a class="user-icon fa fa-user-o" href="{% url 'member:login' %}">
-                    {% if user.is_authenticated %}
-                    <span> {{ user.username }}</span>
-                    {% endif %}
-                </a>
-            </li>
-            <li class="p-2 nav-item sidepadding-sm-container">
-                <a class="btn btn-primary" href="{% url 'post:post_create' %}">Create Post</a>
-            </li>
+        {% if user.is_authenticated %}
+        <div class="justify-content-end collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav">
+                <li class="p-2 nav-item sidepadding-sm-container">
+                    <a class="user-icon fa fa-user-o" href="{% url 'member:login' %}">
+                        {% if user.is_authenticated %}
+                        <span> {{ user.username }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+                <li class="p-2 nav-item sidepadding-sm-container">
+                    <a class="btn btn-primary" href="{% url 'post:post_create' %}">Create Post</a>
+                </li>
 
-        </ul>
-
+            </ul>
+        </div>
+        {% endif %}
     </div>
 </nav>

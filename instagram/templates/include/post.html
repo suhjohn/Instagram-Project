@@ -1,11 +1,16 @@
 <div class="row padding-lg-container">
     <div class="container post-container">
         <div class="row">
-            <div class="col-md-12">
+            <div id="post-{{ post.pk }}" class="col-md-12 padding-xs-container">
                 <a href="#">{{ post.author }}</a>
                 {% if post.author == user %}
                 <form class="float-right display-inline"
-                      action="{% url 'post:post_delete' post_pk=post.pk %}" method="POST">
+                      action="{% url 'post:post_delete' post_pk=post.pk %}?next=
+            {% if post_type == 'list' %}
+            /post/#post-{{ post.pk|add:'-1' }}
+            {% elif post_type == 'detail' %}
+            {% url 'post:post_detail' post_pk=post.pk %}
+            {% endif %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="fa fa-times"></button>
                 </form>
@@ -19,8 +24,12 @@
             {% for comment in post.comments.all %}
             <li class="col comment"><a href="">{{ comment.author }}</a> {{ comment }}
                 {% if comment.author == user %}
-                <form class="float-right display-inline"
-                      action="{% url 'post:delete_comment' comment_pk=comment.pk %}" method="POST">
+                <form class="float-right display-inline" action="{% url 'post:delete_comment' comment_pk=comment.pk %}?next=
+            {% if post_type == 'list' %}
+            /post/#post-{{ post.pk }}
+            {% elif post_type == 'detail' %}
+            {% url 'post:post_detail' post_pk=post.pk %}
+            {% endif %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="fa fa-times"></button>
                 </form>
@@ -29,13 +38,19 @@
             {% endfor %}
         </ul>
         <div class="comment-form-container clearfix">
-            <form method="POST" class="comment-form" action="{% url 'post:add_comment' post_pk=post.pk %}/?next=">
+            <form method="POST" class="comment-form" action="{% url 'post:add_comment' post_pk=post.pk %}?next=
+            {% if post_type == 'list' %}
+            /post/#post-{{ post.pk }}
+            {% elif post_type == 'detail' %}
+            {% url 'post:post_detail' post_pk=post.pk %}
+            {% endif %}">
                 {{ comment_form }}
                 {% csrf_token %}
             </form>
 
             <!-- Modal beginning -->
-            <button class="fa post-options" type="button" class="btn btn-info btn-lg" data-toggle="modal"
+            <button class=" fa post-options
+            " type="button" class="btn btn-info btn-lg" data-toggle="modal"
                     data-target="#myModal-{{ post.pk }}">&#xf141;
             </button>
             <div id="myModal-{{ post.pk }}" class="modal fade" role="dialog">

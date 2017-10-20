@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, logout as django_logout
+from django.contrib.auth import get_user_model, logout as django_logout, login as django_login
 
 import post
 from .forms import SignUpForm, LoginForm
@@ -43,7 +43,8 @@ def signup(request):
     signup_form = SignUpForm(request.POST,)
     if signup_form.is_valid():
         new_user = signup_form.signup()
-        return HttpResponse(f'<p>{new_user.username}</p>')
+        django_login(request, new_user)
+        return redirect('post:post_list')
     context = {
         'signup_form': signup_form
     }

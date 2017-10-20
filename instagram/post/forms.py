@@ -4,6 +4,10 @@ from .models import Post, PostComment
 
 
 class PostForm(forms.ModelForm):
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['author'].required = True
+
     class Meta:
         model = Post
         fields = [
