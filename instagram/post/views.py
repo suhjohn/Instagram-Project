@@ -55,6 +55,40 @@ def post_delete(request, post_pk):
         return HttpResponseForbidden()
 
 
+def post_detail(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    comment_form = PostCommentForm()
+    context = {
+        'post': post,
+        'comment_form': comment_form,
+
+    }
+    return render(request, 'post/post_detail.html', context)
+
+
+def post_like_toggle(request, post_pk):
+    """
+    post_pk 에 해당하는 Post가
+    현재 로그인한 유저의 like_posts에 있다면 없애고
+    like_posts에 없다면 추가
+    :param request:
+    :param post_pk:
+    :return:
+    """
+    next_path = request.GET.get('next')
+    post = get_object_or_404(Post, pk=post_pk)
+    user = request.user
+    filtered_like_posts = user.like_posts.filter(pk=post.pk)
+    if filtered_like_posts.exists():
+        user.like_posts.remove(filtered_like_posts)
+    else:
+        user.like_posts.add(post)
+
+    if next_path:
+        return redirect(next_path)
+    return redirect('post:post_detail', post_pk=post_pk)
+
+
 def add_comment(request, post_pk):
     if bool(request.user.is_authenticated):
         post = Post.objects.get(pk=post_pk)
@@ -79,13 +113,3 @@ def delete_comment(request, comment_pk):
     else:
         return HttpResponseForbidden()
 
-
-def post_detail(request, post_pk):
-    post = get_object_or_404(Post, pk=post_pk)
-    comment_form = PostCommentForm()
-    context = {
-        'post': post,
-        'comment_form': comment_form,
-
-    }
-    return render(request, 'post/post_detail.html', context)

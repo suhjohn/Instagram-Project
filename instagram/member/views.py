@@ -40,7 +40,7 @@ def signup(request):
     :param request:
     :return:
     """
-    signup_form = SignUpForm(request.POST,)
+    signup_form = SignUpForm(request.POST, request.FILES,)
     if signup_form.is_valid():
         new_user = signup_form.save(commit=False)
         new_user.save()

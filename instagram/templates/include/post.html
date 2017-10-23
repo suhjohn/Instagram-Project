@@ -24,11 +24,13 @@
         <!-- Like & Comment -->
         <div class="row margin-width-container">
             <div class="padding-xs-container">
-                {% if post in request.user.like_posts.all %}
-                <button class="fa fa-heart-c"></button>
-                {% else %}
-                <button class="fa fa-heart-o"></button>
-                {% endif %}
+                <form action="{% url 'post:post_like_toggle' post_pk=post.pk %}">
+                    {% if post in request.user.like_posts.all %}
+                    <button class="fa fa-heart-c"></button>
+                    {% else %}
+                    <button class="fa fa-heart-o"></button>
+                    {% endif %}
+                </form>
             </div>
         </div>
         <!-- Like list row -->

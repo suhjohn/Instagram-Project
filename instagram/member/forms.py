@@ -37,7 +37,6 @@ class SignUpForm(UserCreationForm):
                     'class': 'form-control',
                 }
             ),
-
         }
 
 class LoginForm(forms.Form):

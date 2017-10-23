@@ -3,7 +3,7 @@
         <h1>{{ title }}</h1>
     </div>
 </div>
-<form class="form-horizontal" method="POST">
+<form class="form-horizontal" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     {% for field in form %}
     <div class="form-group{% if field.errors %} has-error{% endif %}">

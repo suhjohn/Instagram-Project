@@ -8,7 +8,10 @@ from member.models import User
 
 
 class UserAdmin(BaseUserAdmin):
-    add_form = SignUpForm
+    fieldsets = BaseUserAdmin.fieldsets + (
+        ('Additional info', {'fields' : ('img_profile', 'age')}),
+    )
+
     add_fieldsets = BaseUserAdmin.add_fieldsets + (
         ('Additional info', {'fields': ('img_profile', 'age')}),
     )
