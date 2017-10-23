@@ -32,12 +32,27 @@ class User(AbstractUser):
         related_name='followers',
     )
 
-
     objects = UserManager()
 
     class Meta:
         verbose_name = '사용자'
         verbose_name_plural = f'{verbose_name} 목록'
+
+    def follow_toggle(self, user):
+        """
+
+        :param user:
+        :return:
+        """
+        if not isinstance(user, User):
+            raise ValueError("'user' must be a User instance.")
+
+        relation, relation_created = self.following_user_relations.get_or_create(to_user=user)
+        if relation_created:
+            return True
+
+        relation.delete()
+        return False
 
     def like_post(self, post):
         """자신의 like_posts에 해당내용 추가
@@ -54,6 +69,7 @@ class Relation(models.Model):
     User의 follow 목록을 가질 수 있도록 MTM의 중개모델 구성
     from_user, to_user
     """
+
     from_user = models.ForeignKey(
         User,
         related_name='following_users_relations',
@@ -67,3 +83,4 @@ class Relation(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
     )
+    
