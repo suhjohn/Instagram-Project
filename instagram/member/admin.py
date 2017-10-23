@@ -9,7 +9,7 @@ from member.models import User
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = BaseUserAdmin.fieldsets + (
-        ('Additional info', {'fields' : ('img_profile', 'age')}),
+        ('Additional info', {'fields' : ('img_profile', 'age', 'like_posts')}),
     )
 
     add_fieldsets = BaseUserAdmin.add_fieldsets + (

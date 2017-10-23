@@ -30,7 +30,7 @@ class Post(models.Model):
             "-created_at",
         ]
     def __str__(self):
-        return self.pk
+        return f'{self.author} - {self.pk}'
 
 
 class PostComment(models.Model):

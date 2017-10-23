@@ -16,10 +16,15 @@ def login(request):
     :param request:
     :return:
     """
+    next_path = request.GET.get('next')
     login_form = LoginForm(request.POST,)
+
     if login_form.is_valid():
         login_form.login(request)
+        if next_path:
+            return redirect(next_path)
         return redirect('post:post_list')
+
     context = {
         'login_form':login_form,
     }

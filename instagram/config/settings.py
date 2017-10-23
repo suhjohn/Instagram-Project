@@ -61,6 +61,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
+LOGIN_URL = 'member:login'
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',

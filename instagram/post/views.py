@@ -2,6 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from member.decorators import login_required
 from .forms import PostForm, PostCommentForm
 from .models import Post, PostComment
 
@@ -23,7 +24,7 @@ def post_list(request):
         return render(request, 'post/post_list.html', context)
     return redirect('member:login')
 
-
+@login_required
 def post_create(request):
     """
 
@@ -65,7 +66,7 @@ def post_detail(request, post_pk):
     }
     return render(request, 'post/post_detail.html', context)
 
-
+@login_required
 def post_like_toggle(request, post_pk):
     """
     post_pk 에 해당하는 Post가
@@ -75,12 +76,14 @@ def post_like_toggle(request, post_pk):
     :param post_pk:
     :return:
     """
+
     next_path = request.GET.get('next')
     post = get_object_or_404(Post, pk=post_pk)
     user = request.user
+
     filtered_like_posts = user.like_posts.filter(pk=post.pk)
     if filtered_like_posts.exists():
-        user.like_posts.remove(filtered_like_posts)
+        user.like_posts.remove(post)
     else:
         user.like_posts.add(post)
 

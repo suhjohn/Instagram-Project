@@ -10,10 +10,18 @@ button{
   padding:0;
   border:0;
   background-color: inherit;
-  font-size: 10px !important;
+  font-size: 14px !important;
 }
 
 
+
+.inline{
+  display:inline;
+}
+
+.font-size-md{
+  font-size: 24px !important;
+}
 
 ul{
   list-style:none;
@@ -53,10 +61,17 @@ img{
   padding-bottom:20px;
 }
 
+.padding-side-sm-container{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .padding-xs-container{
   padding-top:10px;
   padding-bottom:10px;
 }
+
+
 
 /* navbar */
 .navbar{
