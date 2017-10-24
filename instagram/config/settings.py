@@ -58,6 +58,11 @@ SECRET_KEY = config_secret_common['django']['secret_key']
 # Facebook
 FACEBOOK_APP_ID = config_secret_common['facebook']['app_id']
 FACEBOOK_APP_SECRET_CODE = config_secret_common['facebook']['secret_code']
+FACEBOOK_APP_SCOPE = [
+    "user_friends",
+    "public_profile",
+    "email"
+]
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
