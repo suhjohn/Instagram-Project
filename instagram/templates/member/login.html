@@ -6,6 +6,8 @@
     <div class="container">
         {% if not user.is_authenticated %}
         {% include 'include/form-horizontal.html' with title="Log In" form=login_form button_text="Log In" %}
+        <a href="https://www.facebook.com/v2.10/dialog/oauth?client_id={{ facebook_app_id }}&redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'member:facebook_login' %}"
+           class="btn btn-info">페이스북 로그인</a>
         <div class="row padding-sm-container">
             <div class="col-centered">
                 <p class="d-block">Not a Member? Create a New Account.</p>

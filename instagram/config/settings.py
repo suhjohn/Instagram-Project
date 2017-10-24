@@ -42,8 +42,6 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL ='member.User'
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -54,6 +52,13 @@ with open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json'))as f:
 config_secret_common = json.loads(config_secret_common_str)
 
 SECRET_KEY = config_secret_common['django']['secret_key']
+
+
+
+# Facebook
+FACEBOOK_APP_ID = config_secret_common['facebook']['app_id']
+FACEBOOK_APP_SECRET_CODE = config_secret_common['facebook']['secret_code']
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
