@@ -125,6 +125,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = config_secret_common['django']['databases']
 
+AUTHENTICATION_BACKENDS = (
+    'member.backends.UsernameLoginBackend.UsernameLoginBackend', # our custom authentication backend
+    'django.contrib.auth.backends.ModelBackend' # fallback to default authentication backend if first fails
+    )
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
