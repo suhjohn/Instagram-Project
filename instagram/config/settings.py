@@ -29,18 +29,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # 고유의 미디어 필드가 갖고있는 주소값과 URL을 붙여 사진으로 접근할 수 있는 주소를 만들어줌
 MEDIA_URL = '/media/'
 
+STATIC_ROOT = os.path.join(ROOT_DIR, ".static_root")
 # instagram_project/instagram/static
 STATIC_DIR = os.path.join(BASE_DIR, "static")
-
 STATIC_URL = '/static/'
-
-#Django에서 정적파일을 검색하고 가져올 폴더 목
+# Django에서 정적파일을 검색하고 가져올 폴더 목
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-
-AUTH_USER_MODEL ='member.User'
+AUTH_USER_MODEL = 'member.User'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -53,8 +51,6 @@ config_secret_common = json.loads(config_secret_common_str)
 
 SECRET_KEY = config_secret_common['django']['secret_key']
 
-
-
 # Facebook
 FACEBOOK_APP_ID = config_secret_common['facebook']['app_id']
 FACEBOOK_APP_SECRET_CODE = config_secret_common['facebook']['secret_code']
@@ -64,18 +60,17 @@ FACEBOOK_APP_SCOPE = [
     "email"
 ]
 
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECURITY WARNING: don't run with turned on in production!
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
     '.ap-northeast-2.compute.amazonaws.com',
+    '.djangostagram.com',
 ]
 
 # Application definition
 LOGIN_URL = 'member:login'
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -126,14 +121,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+
 DATABASES = config_secret_common['django']['databases']
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'member.custom_backend.UsernameLoginBackend', # our custom authentication backend
-
+    'member.custom_backend.UsernameLoginBackend',  # our custom authentication backend
 )
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -165,6 +159,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-
