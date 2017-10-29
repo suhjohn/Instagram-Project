@@ -63,7 +63,6 @@ FACEBOOK_APP_SCOPE = [
     "email"
 ]
 
-
 ALLOWED_HOSTS = [
     'localhost',
     '.amazonaws.com',

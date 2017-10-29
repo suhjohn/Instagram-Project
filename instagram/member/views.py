@@ -141,6 +141,7 @@ def facebook_login(request):
 
     # 페이스북으로 가입한 유저의 usernameㅇ  = fb_<facebook_user_id>
     username = f'fb_{user_info.id}'
+    print(f'username before if: {username}')
     # 위 username에 해당하는 User가 있는지 검사
     if User.objects.filter(username=username).exists():
         # 있으면 user에 해당하는 유저를 할당
@@ -149,11 +150,16 @@ def facebook_login(request):
         django_login(request, login_fb_user)
     else:
         # 없으면 user에 새로 만든 User를 할당
+        print(f'User class : {User}')
+        print(f'username: {username}')
+        print(f'usertype: {User.USER_TYPE_FACEBOOK}')
+        print(f'User createuser method : {User.objects.create_user}')
         user = User.objects.create_user(
             user_type=User.USER_TYPE_FACEBOOK,
             username=username,
             age=0
         )
+        print(f'user: {user}')
 
     # user를 로그인시키고 post_list페이지로 이동
     new_user = authenticate(request, username=user.username, password=user.password)
