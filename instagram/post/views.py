@@ -1,6 +1,12 @@
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+from django.contrib.auth.models import User
+
+
 # Create your views here.
 from member.decorators import login_required
 from .forms import PostForm, PostCommentForm
@@ -80,7 +86,6 @@ def post_like_toggle(request, post_pk):
     next_path = request.GET.get('next')
     post = get_object_or_404(Post, pk=post_pk)
     user = request.user
-
     filtered_like_posts = user.like_posts.filter(pk=post.pk)
     if filtered_like_posts.exists():
         user.like_posts.remove(post)
@@ -90,6 +95,23 @@ def post_like_toggle(request, post_pk):
     if next_path:
         return redirect(next_path)
     return redirect('post:post_detail', post_pk=post_pk)
+
+
+class PostLikeAPIToggle(APIView):
+    """
+    View to list all users in the system.
+
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAdminUser,)
+    def get(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        usernames = [user.username for user in User.objects.all()]
+        return Response(usernames)
 
 
 def add_comment(request, post_pk):

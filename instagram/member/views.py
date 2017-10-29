@@ -4,7 +4,8 @@ import requests
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, logout as django_logout, login as django_login
+from django.contrib.auth import get_user_model, logout as django_logout, login as django_login, _get_backends, \
+    authenticate
 from django.urls import reverse
 
 import post
@@ -57,8 +58,8 @@ def signup(request):
     """
     signup_form = SignUpForm(request.POST, request.FILES, )
     if signup_form.is_valid():
-        new_user = signup_form.save(commit=False)
-        new_user.save()
+        signup_form.save()
+        new_user = authenticate(request, username=signup_form.cleaned_data['username'], password=signup_form.cleaned_data['password2'])
         django_login(request, new_user)
         return redirect('post:post_list')
     context = {
@@ -90,7 +91,6 @@ def facebook_login(request):
             self.email = data.get('email', '')
             self.url_picture = data['picture']['data']['url']
 
-
     url_access_token = "https://graph.facebook.com/v2.10/oauth/access_token"
     app_id = settings.FACEBOOK_APP_ID
     app_secret = settings.FACEBOOK_APP_SECRET_CODE
@@ -107,7 +107,7 @@ def facebook_login(request):
             'client_id': app_id,
             'redirect_uri': redirect_uri,
             'client_secret': app_secret,
-            'code':code,
+            'code': code,
         }
         response_1 = requests.get(url_access_token, params_access_token)
         return AccessTokenInfo(**response_1.json())
@@ -147,7 +147,8 @@ def facebook_login(request):
     if User.objects.filter(username=username).exists():
         # 있으면 user에 해당하는 유저를 할당
         user = User.objects.get(username=username)
-        django_login(request, user)
+        login_fb_user = authenticate(request, username=user.username, password=user.password)
+        django_login(request, login_fb_user)
     else:
         # 없으면 user에 새로 만든 User를 할당
         user = User.objects.create_user(
@@ -156,11 +157,6 @@ def facebook_login(request):
             age=0
         )
     # user를 로그인시키고 post_list페이지로 이동
-    django_login(request, user)
+    new_user = authenticate(request, username=username)
+    django_login(request, new_user)
     return redirect('post:post_list')
-
-
-
-
-
-

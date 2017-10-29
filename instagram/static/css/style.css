@@ -7,11 +7,61 @@
   clear: both;
 }
 
+p {
+  margin: 0;
+}
+
 button {
   padding: 0;
   border: 0;
   background-color: inherit;
   font-size: 14px !important;
+}
+
+.btn {
+  background-color: #3897f0;
+  border-color: #3897f0;
+}
+
+.facebook-btn {
+  color: white;
+}
+
+.text-hide-custom {
+  visibility: hidden;
+}
+
+.instagram {
+  background-position: 0 0;
+  background-size: 400px 370px;
+  overflow: hidden;
+  background-image: url(/static/icons.png);
+}
+
+.instagram-main {
+  background-position: -176px 0;
+  background-size: 395px 371px;
+  width: 176px;
+  height: 35px;
+  overflow: hidden;
+  background-image: url(/static/icons.png);
+}
+
+.background-white {
+  background-color: #fefefe;
+}
+
+.facebook-icon {
+  color: transparent;
+  background-image: url(/static/icons.png);
+  display: inline-block;
+  margin-right: 8px;
+  position: relative;
+  background-position: -379px 0;
+  background-size: 395px 371px;
+  background-repeat: no-repeat;
+  height: 16px;
+  width: 16px;
 }
 
 .inline {
@@ -51,8 +101,8 @@ img {
 }
 
 .padding-lg-container {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 .padding-md-container {
@@ -65,6 +115,14 @@ img {
   padding-bottom: 20px;
 }
 
+.margin-xs-top {
+  margin-top: 10px;
+}
+
+.form-control {
+  background-color: #fafafa;
+}
+
 .padding-side-sm-container {
   padding-left: 20px;
   padding-right: 20px;
@@ -75,10 +133,17 @@ img {
   padding-bottom: 10px;
 }
 
+.padding-full-md-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 /* navbar */
 .navbar {
   background-color: white;
-  box-shadow: 2px 3px 5px lightgrey;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .user-icon {

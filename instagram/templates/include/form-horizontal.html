@@ -1,29 +1,30 @@
+{% load static %}
+
+
 <div class="sign-up-row row">
-    <div class="col-centered">
-        <h1>{{ title }}</h1>
+    <div class="instagram col-centered">
+       <h1 class="text-hide-custom d-block">Instagram</h1>
     </div>
 </div>
 <form class="form-horizontal" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     {% for field in form %}
     <div class="form-group{% if field.errors %} has-error{% endif %}">
-        <label for="{{ form.username.auto_id }}" class="col-xs-2 control-label">
-            {{ field.label }}
-        </label>
         <div class="col-xs-10">
-            {{ field}}
+            {{ field.label }}
+            {{ field }}
         </div>
 
         {% if field.errors %}
         <ul>
-            {% for error in field.errors %}
+            {% for error in non_field.errors %}
             <li>{{ error }}</li>
             {% endfor %}
         </ul>
-    </div>
+        {% endif %}
 
-    {% endif %}
+    </div>
     {% endfor %}
 
-    <button type="submit" class="btn btn-primary btn-post">{{ button_text }}</button>
+    <button type="submit" class="btn btn-block btn-primary btn-post">{{ button_text }}</button>
 </form>

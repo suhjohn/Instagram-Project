@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 
 # from member.custom_validators import validate_username
 
-from .models import User
 
 User = get_user_model()
 
@@ -13,39 +12,47 @@ User = get_user_model()
 class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        class_update_fields = ('password1', 'password2', 'first_name', 'last_name', 'email')
+        class_update_fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email')
         for field in class_update_fields:
             self.fields[field].widget.attrs.update({
-                'class' : 'form-control',
+                'class': 'form-control',
             })
+
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password1', 'password2',)
+        fields = ('email', 'username', 'first_name', 'last_name', 'password1', 'password2',)
         widgets = {
             'password1': forms.PasswordInput(
                 attrs={
-                    'class' : 'form-control',
+                    'class': 'form-control',
+                }
+            ),
+        }
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
                 }
             ),
         }
         widgets = {
             'email': forms.EmailInput(
                 attrs={
-                    'class' : 'form-control',
+                    'class': 'form-control',
                 }
             )
         }
         widgets = {
             'first_name': forms.TextInput(
                 attrs={
-                    'class' : 'form-control',
+                    'class': 'form-control',
                 }
             )
         }
         widgets = {
             'last_name': forms.TextInput(
                 attrs={
-                    'class' : 'form-control',
+                    'class': 'form-control',
                 }
             )
         }
@@ -59,6 +66,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
+                'placeholder':"사용자 이름 또는 이메일",
                 'class': 'form-control',
             }
         )
@@ -66,6 +74,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
+                'placeholder': "비밀번호",
                 'class': 'form-control',
             }
         )

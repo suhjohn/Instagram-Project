@@ -1,11 +1,14 @@
 
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import AbstractUser, UserManager as DjangoUserManager, PermissionsMixin
+from django.contrib.auth.models import UserManager as DjangoUserManager, PermissionsMixin
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 from django.utils import six, timezone
 from django.contrib.auth.validators import UnicodeUsernameValidator, ASCIIUsernameValidator
 from django.db import models
+
+from member.custom_validators import validate_fb_username
+
 
 class UserManager(DjangoUserManager):
     def create_superuser(self, *args, **kwargs):
@@ -26,8 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('username'),
         max_length=150,
         unique=True,
-        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
-        validators=[username_validator],
+        validators=[validate_fb_username, username_validator],
         error_messages={
             'unique': _("A user with that username already exists."),
         },
@@ -38,6 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
+        unique=True,
         help_text=_('Designates whether the user can log into this admin site.'),
     )
     is_active = models.BooleanField(
@@ -96,6 +99,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     age = models.IntegerField(
         '나이',
         blank=True,
+        null=True,
     )
     like_posts = models.ManyToManyField(
         'post.Post',
@@ -143,8 +147,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         self.like_posts.add(post=post)
 
-        # Createsuperuser를 할 때 물어보는 항목 추가
-        # REQUIRED_FIELDS = AbstractUser.REQUIRED_FIELDS + ['age']
 
 class Relation(models.Model):
     """

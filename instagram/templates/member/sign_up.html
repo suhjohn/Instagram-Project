@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="body-container">
     <div class="container">
-        <!--{{ form.as_p }}-->
-        {% include 'include/form-horizontal.html' with title="Sign Up" form=signup_form button_text="Sign Up" %}
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-4">
+                <div class="background-white padding-full-md-container">
+                    {% include 'include/form-horizontal.html' with form=signup_form button_text="Sign Up" %}
+                    <button href="https://www.facebook.com/v2.10/dialog/oauth?client_id={{ facebook_app_id }}&
+        scope={{ facebook_app_scope }}&
+        redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'member:facebook_login' %}"
+                            class="facebook-btn btn btn-block btn-primary btn-post"><p class="facebook-icon">F</p>
+                        Facebook으로 로그인
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 </div>
 
 {% endblock %}

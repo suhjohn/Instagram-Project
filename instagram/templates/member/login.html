@@ -4,31 +4,39 @@
 
 <div class="body-container">
     <div class="container">
-        {% if not user.is_authenticated %}
-        {% include 'include/form-horizontal.html' with title="Log In" form=login_form button_text="Log In" %}
-        <a href="https://www.facebook.com/v2.10/dialog/oauth?client_id={{ facebook_app_id }}&
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-4">
+                <div class="background-white padding-full-md-container">
+                    {% if not user.is_authenticated %}
+                    {% include 'include/form-horizontal.html' with form=login_form button_text="Log In" %}
+
+                    <div>
+                        <div class="padding-md-container text-center insta-text">또는</div>
+
+                    </div>
+                    <a href="https://www.facebook.com/v2.10/dialog/oauth?client_id={{ facebook_app_id }}&
         scope={{ facebook_app_scope }}&
         redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'member:facebook_login' %}"
-           class="btn btn-info">페이스북 로그인</a>
-        <div class="row padding-sm-container">
-            <div class="col-centered">
-                <p class="d-block">Not a Member? Create a New Account.</p>
-            </div>
-        </div>
-        <div class="row padding-sm-container">
-            <div class="col-centered d-block">
-                <a href="{% url 'member:signup' %}" class="d-block btn btn-primary">sign up</a>
+                       class="facebook-btn btn btn-block "><p class="facebook-icon">F</p>Facebook으로 로그인</a>
+                </div>
+
+                <div class="padding-sm-container background-white margin-xs-top">
+                    <div class="col-centered">
+                        <p class="text-center">계정이 없으신가요? <a href="{% url 'member:signup' %}" class="">가입하기</a>
+                        </p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="padding-full-md-container">
+                    <div class="col-centered">
+                        <a href="{% url 'member:logout' %}" class="d-block btn-block btn btn-primary">Log Out</a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
-    {% else %}
-    <div class="row padding-sm-container">
-        <div class="col-centered d-block">
-            <a href="{% url 'member:logout' %}" class="d-block btn btn-primary">Log Out</a>
-        </div>
-    </div>
-    {% endif %}
-</div>
 </div>
 
 {% endblock %}
