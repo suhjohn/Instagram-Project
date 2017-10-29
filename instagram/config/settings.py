@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import json
 import os
 
+# SECURITY WARNING: don't run with turned on in production!
+DEBUG = True
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # instagraom_project/instagram
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -60,12 +63,10 @@ FACEBOOK_APP_SCOPE = [
     "email"
 ]
 
-# SECURITY WARNING: don't run with turned on in production!
-DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
-    '.ap-northeast-2.compute.amazonaws.com',
+    '.amazonaws.com',
     '.djangostagram.com',
 ]
 
@@ -121,8 +122,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-
-DATABASES = config_secret_common['django']['databases']
+if DEBUG == True:
+    DATABASES = config_secret_common['django']['local_databases']
+else:
+    DATABASES = config_secret_common['django']['deploy_databases']
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

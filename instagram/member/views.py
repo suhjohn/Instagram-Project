@@ -124,7 +124,6 @@ def facebook_login(request):
 
     access_token = get_access_token_info(code).access_token
     debug_token_info = get_debug_token_info(access_token)
-
     user_info_fields = [
         'id',
         'name',
@@ -138,7 +137,6 @@ def facebook_login(request):
     }
     response = requests.get(url_graph_user_info, params_graph_user_info)
     result = response.json()
-
     user_info = UserInfo(data=result)
 
     # 페이스북으로 가입한 유저의 usernameㅇ  = fb_<facebook_user_id>
@@ -156,7 +154,8 @@ def facebook_login(request):
             username=username,
             age=0
         )
+
     # user를 로그인시키고 post_list페이지로 이동
-    new_user = authenticate(request, username=username)
+    new_user = authenticate(request, username=user.username, password=user.password)
     django_login(request, new_user)
     return redirect('post:post_list')
