@@ -3,13 +3,42 @@
 {% block content %}
 <div class="body-container">
     <div class="container padding-lg-container textalign-center">
-        <h1>Form</h1>
+        <h1>Upload Photo</h1>
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ imageform.as_p }}
-            <button type="submit" class="btn btn-primary btn-post" value="upload post">upload post</button>
+            <div id="wrapper">
+                {{ imageform.photo }}
+                <div id="image-holder"></div>
+                <button type="submit" class="btn btn-primary btn-post" value="upload post">upload post</button>
+            </div>
         </form>
     </div>
 </div>
+
+<script>
+$("#id_photo").on('change', function () {
+
+        if (typeof (FileReader) != "undefined") {
+
+            var image_holder = $("#image-holder");
+            image_holder.empty();
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("<img />", {
+                    "src": e.target.result,
+                    "class": "thumb-image"
+                }).appendTo(image_holder);
+
+            }
+            image_holder.show();
+            reader.readAsDataURL($(this)[0].files[0]);
+        } else {
+            alert("This browser does not support FileReader.");
+        }
+    });
+
+
+</script>
 
 {% endblock %}

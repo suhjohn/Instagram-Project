@@ -29,6 +29,7 @@ CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
 
 # instagram_project/instagram/media
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 # 고유의 미디어 필드가 갖고있는 주소값과 URL을 붙여 사진으로 접근할 수 있는 주소를 만들어줌
 MEDIA_URL = '/media/'
 

@@ -26,7 +26,11 @@
             <div class="">
                 <form method="POST" class="padding-xs-container inline" action="{% url 'post:post_like_toggle' post_pk=post.pk %}">
                     {% csrf_token %}
+                    {% if user in post.liked_user.all %}
                     <button id="like" class="font-size-md fa fa-heart"></button>
+                    {% else %}
+                    <button id="dislike" class="font-size-md fa fa-heart-o"></button>
+                    {% endif %}
                 </form>
                 <button class="padding-xs-container padding-side-sm-container font-size-md fa fa-comment-o"></button>
             </div>

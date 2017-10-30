@@ -14,7 +14,6 @@ class PostForm(forms.ModelForm):
             "photo",
         ]
 
-
 class PostCommentForm(forms.ModelForm):
     content = forms.CharField(
         label='',
