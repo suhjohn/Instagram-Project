@@ -147,7 +147,31 @@ img {
 }
 
 .user-icon {
-  display: flex;
+  font-size: 24px !important;
+  color: #003569;
+  font-weight: 100;
+}
+
+.user-icon :hover {
+  text-decoration: none;
+}
+
+.user-icon-heart {
+  display: block;
+  background-position: -353px -151px;
+  background-image: url(/static/icons.png);
+  background-size: 395px 371px;
+  height: 24px;
+  width: 24px;
+}
+
+.user-icon-user {
+  display: block;
+  background-position: -353px -226px;
+  background-image: url(/static/icons.png);
+  background-size: 395px 371px;
+  height: 24px;
+  width: 24px;
 }
 
 .display-inline {
@@ -193,6 +217,14 @@ input {
 
 .comment-form:active {
   border: 0;
+}
+
+#navbarToggler {
+  margin-left: auto;
+}
+
+.navbar-nav {
+  align-items: center;
 }
 
 .comment {
@@ -264,6 +296,11 @@ input {
 .sidepadding-sm-container {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.sidepadding-md-container {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .sign-up-col {

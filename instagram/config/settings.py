@@ -13,7 +13,7 @@ import json
 import os
 
 # SECURITY WARNING: don't run with turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # instagraom_project/instagram

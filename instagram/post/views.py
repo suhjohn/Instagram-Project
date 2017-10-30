@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.contrib.auth.models import User
 
-
 # Create your views here.
 from member.decorators import login_required
 from .forms import PostForm, PostCommentForm
@@ -29,6 +28,7 @@ def post_list(request):
         }
         return render(request, 'post/post_list.html', context)
     return redirect('member:login')
+
 
 @login_required
 def post_create(request):
@@ -72,6 +72,7 @@ def post_detail(request, post_pk):
     }
     return render(request, 'post/post_detail.html', context)
 
+
 @login_required
 def post_like_toggle(request, post_pk):
     """
@@ -106,6 +107,7 @@ class PostLikeAPIToggle(APIView):
     """
     authentication_classes = (authentication.SessionAuthentication,)
     permission_classes = (permissions.IsAdminUser,)
+
     def get(self, request, format=None):
         """
         Return a list of all users.
@@ -137,4 +139,3 @@ def delete_comment(request, comment_pk):
         return redirect(next)
     else:
         return HttpResponseForbidden()
-
