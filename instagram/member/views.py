@@ -165,3 +165,11 @@ def facebook_login(request):
     new_user = authenticate(request, username=user.username, password=user.password)
     django_login(request, new_user)
     return redirect('post:post_list')
+
+def profile(request, username):
+
+    context = {
+        'username':username,
+    }
+
+    return render(request, 'member/profile.html', context)

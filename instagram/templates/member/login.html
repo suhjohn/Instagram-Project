@@ -13,32 +13,24 @@
                             <h1 class="text-hide-custom d-block">Instagram</h1>
                         </div>
                     </div>
-                    {% if not user.is_authenticated %}
                     {% include 'include/form-horizontal.html' with form=login_form button_text="Log In" %}
 
                     <div>
-                        <div class="padding-md-container text-center insta-text">또는</div>
+                        <div class="padding-md-container text-center insta-text">Or</div>
 
                     </div>
                     <a href="https://www.facebook.com/v2.10/dialog/oauth?client_id={{ facebook_app_id }}&
         scope={{ facebook_app_scope }}&
         redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'member:facebook_login' %}"
-                       class="facebook-btn btn btn-block "><p class="facebook-icon">F</p>Facebook으로 로그인</a>
+                       class="facebook-btn btn btn-block "><p class="facebook-icon">F</p>Login with Facebook</a>
                 </div>
 
                 <div class="padding-sm-container background-white margin-xs-top">
                     <div class="col-centered">
-                        <p class="text-center">계정이 없으신가요? <a href="{% url 'member:signup' %}" class="">가입하기</a>
+                        <p class="text-center">Not a member yet? <a href="{% url 'member:signup' %}" class="">Sign Up</a>
                         </p>
                     </div>
                 </div>
-                {% else %}
-                <div class="padding-full-md-container">
-                    <div class="col-centered">
-                        <a href="{% url 'member:logout' %}" class="d-block btn-block btn btn-primary">Log Out</a>
-                    </div>
-                </div>
-                {% endif %}
             </div>
         </div>
     </div>

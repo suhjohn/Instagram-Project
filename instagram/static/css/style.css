@@ -146,6 +146,10 @@ img {
   border-bottom: 1px solid #eaeaea;
 }
 
+.form-control {
+  font-size: 1em;
+}
+
 .user-icon {
   font-size: 24px !important;
   color: #003569;

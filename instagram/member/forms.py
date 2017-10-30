@@ -66,7 +66,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'placeholder':"사용자 이름 또는 이메일",
+                'placeholder':"Username or Email",
                 'class': 'form-control',
             }
         )
@@ -74,7 +74,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                'placeholder': "비밀번호",
+                'placeholder': "Password",
                 'class': 'form-control',
             }
         )
