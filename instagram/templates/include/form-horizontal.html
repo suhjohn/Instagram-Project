@@ -1,11 +1,7 @@
 {% load static %}
 
 
-<div class="sign-up-row row">
-    <div class="instagram col-centered">
-       <h1 class="text-hide-custom d-block">Instagram</h1>
-    </div>
-</div>
+
 <form class="form-horizontal" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     {% for field in form %}

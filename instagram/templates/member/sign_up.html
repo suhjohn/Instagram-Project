@@ -8,13 +8,19 @@
             <div class="col-md-6"></div>
             <div class="col-md-4">
                 <div class="background-white padding-full-md-container">
-                    {% include 'include/form-horizontal.html' with form=signup_form button_text="Sign Up" %}
+                    <div class="sign-up-row row">
+                        <div class="instagram col-centered">
+                            <h1 class="text-hide-custom d-block">Instagram</h1>
+                        </div>
+                    </div>
                     <button href="https://www.facebook.com/v2.10/dialog/oauth?client_id={{ facebook_app_id }}&
         scope={{ facebook_app_scope }}&
         redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'member:facebook_login' %}"
                             class="facebook-btn btn btn-block btn-primary btn-post"><p class="facebook-icon">F</p>
                         Facebook으로 로그인
                     </button>
+                    {% include 'include/form-horizontal.html' with form=signup_form button_text="Sign Up" %}
+
                 </div>
             </div>
         </div>

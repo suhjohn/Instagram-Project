@@ -13,7 +13,7 @@ import json
 import os
 
 # SECURITY WARNING: don't run with turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # instagraom_project/instagram
@@ -67,7 +67,7 @@ FACEBOOK_APP_SCOPE = [
 ALLOWED_HOSTS = [
     'localhost',
     '.amazonaws.com',
-    '.djangostagram.com',
+    '.djangostagram.net',
 ]
 
 # Application definition
